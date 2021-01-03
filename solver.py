@@ -15,6 +15,8 @@ grid = [
 
 matrix = np.matrix(grid)
 print(matrix)
+print("\n")
+
 
 
 def is_possible_value(y, x, value):

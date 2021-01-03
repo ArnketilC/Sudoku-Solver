@@ -4,6 +4,7 @@ import json
 import sys
 from os import path
 from pygame.constants import QUIT
+from square import Square
 
 with open(path.join(sys.path[0], 'settings.json'), 'r') as json_file:
     SETTINGS = json.load(json_file)
@@ -15,7 +16,7 @@ def check_event():
             sys.exit()
 
 
-def draw_grid():
+def draw_grid(button):
     """Draw the sudoku grid."""
     blockSize = (SETTINGS['resolution'][1]-50)/9
     for x in range(9):
@@ -23,10 +24,11 @@ def draw_grid():
             rect = pygame.Rect(10 + x*blockSize, 10 + y*blockSize,
                                blockSize, blockSize)
             pygame.draw.rect(SCREEN, SETTINGS['white'], rect, 1)
+    button.draw()
 
 
 def run():
-    """Main loop."""
+    """Run main loop."""
     global SCREEN
     pygame.init()
     SCREEN = pygame.display.set_mode(tuple(SETTINGS['resolution']))
@@ -35,7 +37,8 @@ def run():
     icon = pygame.image.load(path.join(sys.path[0], "resources/sudoku.png"))
     pygame.display.set_icon(icon)
 
-    draw_grid()
+    button = Square(SETTINGS, SCREEN, 5)
+    draw_grid(button)
 
     while True:
         check_event()
@@ -43,5 +46,5 @@ def run():
 
 
 if __name__ == '__main__':
-    """Run this part only on launch."""
+    #Run this part only on launch.
     run()
